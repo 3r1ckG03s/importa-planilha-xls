@@ -13,7 +13,7 @@
 function sendInformation(data) {
   axios({
     method: "post",
-    url: "http://localhost:8080/files",
+    url: `${API_HOST}/files`,
     data,
   })
     .then(({ data }) => {
