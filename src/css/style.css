@@ -1,0 +1,46 @@
+body{
+    background-color: #060F30 ; 
+}
+
+DIV.row{
+    margin-left: auto;
+    margin-right: auto;
+}
+DIV.titulo{
+    font-family: 'Roboto Slab', serif;
+    color: #FFFFFF;
+    
+    position: absolute;
+    width: 446px;
+    height: 47px;
+    left: 22em;
+    top: 10em;
+}
+input{
+    color:white;
+    height: 32px;
+    width: 250px;
+    background-color: #4C92A8;
+    border-radius: 150px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right:0;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto Slab', serif;
+}
+.btn{
+    position: absolute;
+    width: 146px;
+    height: 47px;
+    left: 28em;
+    top: 25em;
+    font-family: 'Roboto Slab', serif;
+    background-color: #0C9021;
+    border-radius: 5px;
+}
