@@ -2,7 +2,11 @@ const { Schema, model } = require("mongoose");
 
 const Userschema = new Schema(
   {
-    phone: {
+    nome: {
+      type: String,
+      required: true,
+    },
+    telefone: {
       type: String,
       required: true,
     },
