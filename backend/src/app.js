@@ -11,14 +11,14 @@ app.use(express.json());
 
 app.post("/files", fileController.getFile);
 
-app.listen(8080, () => {
+app.listen(process.env.PORT || 8080, () => {
   mongoose
     .connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
     .then(() =>
-      console.log("Servidor iniciado na porta 8080: http://localhost:8080/")
+      console.log("Servidor iniciado na porta ", process.env.PORT || 8080)
     )
     .catch((err) => console.log("Database access error ", err));
 });
