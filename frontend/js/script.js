@@ -11,7 +11,7 @@ function sendInformation(data) {
     })
     .catch((err) => {
       console.error(err);
-      document.getElementById("upload-button").setAttribute("disabled", true);
+      document.getElementById("upload-button").removeAttribute("disabled");
     });
 }
 
@@ -21,6 +21,7 @@ function setElementsDisplay(file) {
     document.getElementById("upload-section").style.display = "flex";
     document.getElementById("file-info").style.display = "flex";
     document.getElementById("file-description").innerText = file.name;
+    document.getElementById("upload-button").removeAttribute("disabled");
   }
 }
 
