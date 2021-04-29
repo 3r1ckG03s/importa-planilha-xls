@@ -1,16 +1,5 @@
-// axios ({
-//     method:'get',
-//     url:'localhost',
-//     data:{
-//         nome='',
-//         numero=''
-//     }
-// })
-// .then(functin (response){
-//     response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
-// });
-
 function sendInformation(data) {
+  document.getElementById("upload-button").setAttribute("disabled", true);
   axios({
     method: "post",
     url: `${API_HOST}/files`,
@@ -18,9 +7,11 @@ function sendInformation(data) {
   })
     .then(({ data }) => {
       console.log(data);
+      alert(data.success);
     })
     .catch((err) => {
       console.error(err);
+      document.getElementById("upload-button").setAttribute("disabled", true);
     });
 }
 
@@ -60,8 +51,6 @@ function getFile() {
 
     setElementsDisplay(file);
 
-    uploadButton.addEventListener("click", () => {
-      convertXLSXToJson(file);
-    });
+    uploadButton.addEventListener("click", () => convertXLSXToJson(file));
   });
 }
