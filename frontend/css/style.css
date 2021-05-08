@@ -1,0 +1,75 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+.bg {
+  height: 100%;
+  background-color: #060f30;
+}
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.content > h2 {
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+}
+.file-input {
+  position: absolute;
+  top: -100%;
+  opacity: 0;
+}
+.action-button {
+  width: 210px;
+  height: 55px;
+  font-family: "Roboto Slab", serif;
+  border-radius: 20px;
+  font-size: 20px;
+}
+.file-form > div span {
+  display: flex;
+  flex-direction: column;
+}
+.secondary-button {
+  color: #fff;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+}
+.secondary-button:hover {
+  color: #4c92a8;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.file-details {
+  display: flex;
+  color: #fff;
+}
+.file-details > p {
+  max-width: 203.44px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 40px;
+  margin-left: 15px;
+  align-self: flex-end;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+}
+#upload-section,
+#file-info {
+  display: none;
+}
