@@ -10,10 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!-- bootstrap config -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+  <!-- materialize config -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css" />
   <!-- styles config -->
   <link rel="stylesheet" href="./css/style.css">
 
@@ -26,9 +26,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   <!-- axios cdn -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -44,34 +43,127 @@
 
 <body>
   <div class="container-fluid bg">
+    <img src="./img/bg.png" alt="">
     <div class="content">
-      <h2>XLSX Automated System</h2>
+      <h3 class="header title-light align-center">K.M automation system</h3>
+      <p class="flow-text subtitle-light align-center">Communicate with your customers quickly and effectively.</p>
 
-      <span id="file-info" class="file-details mt-4">
-        <img src="./img/description_black_24dp 1.svg" alt="">
-        <p id="file-description">Nome_do_arquivo.xlsx</p>
-      </span>
+      <br>
 
       <form role="form" class="file-form" onsubmit="return false;">
         <input id="file-input" type="file" accept=".xls,.xlsx" , class="file-input" />
 
         <div>
           <span id="file-section">
-            <label for="file-input" class="btn btn-info mt-5 action-button first-act" onclick="getFile()"><img
-                src="./img/folder_open_white_24dp.svg" alt="">&nbsp Select
-              file</label>
-          </span>
-          <span id="upload-section">
-            <button type="button" id="upload-button" class="btn btn-success action-button mt-5"><img
-                src="./img/upload_white_24dp.svg" alt="">&nbsp Upload file</button>
-            <label for="file-input" type="button" class="btn btn-link secondary-button mt-3" onclick="getFile()">Select
-              another
-              file</label>
+            <label for="file-input" class="waves-effect waves-lighten-2 btn-large first-act" onclick="getFile()"><i
+                class="material-icons left">folder_open</i>Select file</label>
           </span>
         </div>
       </form>
     </div>
 
+  </div>
+
+  <!-- Contacts Modal -->
+  <div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4 class="header teal-text text-darken-3">Contacts Details</h4>
+
+      <div>
+        <!-- preloader -->
+        <div class="preloader-wrapper big active" id="file-loading">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- users list -->
+      <ul class="collection">
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <a href="#modal2" class="modal-close modal-trigger">
+        <button class="waves-effect waves-light btn footer-option" type="submit">
+          <i class="material-icons left">upload</i>Upload
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Send Message Modal -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <h4 class="header teal-text text-darken-3">We'leftre almost there!</h4>
+      <p>Set a message to send for your contacts.</p>
+
+      <br>
+
+      <form action="" id="message-form">
+        <div class="row">
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">textsms</i>
+                <input type="text" id="autocomplete-input" required class="autocomplete">
+                <label for="autocomplete-input">Type your message here...</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="upload-wrapper">
+          <button class="waves-effect waves-light btn footer-option" id="upload-button" type="submit">
+            Send<i class="material-icons right" id="send-icon">send</i>
+            <div class="loader"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer"></div>
   </div>
 </body>
 
