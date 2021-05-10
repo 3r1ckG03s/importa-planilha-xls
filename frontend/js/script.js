@@ -1,4 +1,6 @@
-function sendInformation(data) {
+let finalData = [];
+
+function sendInformation() {
   $("#upload-button").attr("disabled", true);
   $(".autocomplete").attr("disabled", true);
   $("#send-icon").hide();
@@ -7,11 +9,14 @@ function sendInformation(data) {
   axios({
     method: "post",
     url: `${API_HOST}/files`,
-    data,
+    data: {
+      msg: $("#autocomplete-input").val(),
+      data: finalData,
+    },
   })
     .then(({ data }) => {
-      console.log(data);
       M.toast({ html: data.success });
+      finalData = [];
       $("#modal2").modal("close");
     })
     .catch((err) => {
@@ -23,6 +28,7 @@ function sendInformation(data) {
       $(".autocomplete").removeAttr("disabled");
       $(".loader").hide();
       $("#send-icon").show();
+      $(".collection").empty();
     });
 }
 
@@ -38,9 +44,7 @@ function hideElements() {
   $(".loader").hide();
 }
 
-function showElements(finalData) {
-  const messageForm = $("#message-form");
-
+function showElements() {
   finalData.forEach((data, index) => {
     if ((data.nome || data.Nome) && (data.telefone || data.Telefone)) {
       $(".collection").html(`
@@ -63,11 +67,6 @@ function showElements(finalData) {
   $(".collection").show();
   $(".footer-option").show();
   $("#file-loading").hide();
-
-  messageForm.submit((e) => {
-    e.preventDefault();
-    finalData.length > 0 && sendInformation(finalData);
-  });
 }
 
 function convertXLSXToJson(file) {
@@ -79,10 +78,10 @@ function convertXLSXToJson(file) {
         type: "binary",
       });
       workBook.SheetNames.forEach((sheet) => {
-        const finalData = XLSX.utils.sheet_to_row_object_array(
-          workBook.Sheets[sheet]
+        finalData.push(
+          ...XLSX.utils.sheet_to_row_object_array(workBook.Sheets[sheet])
         );
-        finalData.length > 0 && setTimeout(() => showElements(finalData), 2000);
+        finalData.length > 0 && setTimeout(showElements, 2000);
       });
     };
     fileReader.readAsBinaryString(file);
@@ -101,5 +100,13 @@ function getFile() {
 }
 
 $(document).ready(function () {
-  $(".modal").modal();
+  $(".modal").modal({
+    onCloseStart: () => {
+      $(".collection").empty();
+    },
+  });
+  $("#message-form").submit((e) => {
+    e.preventDefault();
+    finalData.length > 0 && sendInformation();
+  });
 });

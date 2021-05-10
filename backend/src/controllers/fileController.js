@@ -1,24 +1,35 @@
 const { User } = require("../models/User");
+const messageServices = require("../services/messageServices");
 
 module.exports = {
   getFile(req, res) {
-    console.log("here ", req.body);
-    if (!req.body.length === 0)
+    const { msg, data } = req.body;
+    if (!msg || !data.length === 0)
       return res.status(400).json({
         error: "Empty body data!",
       });
-    const invalidData = req.body.filter((item) => !item.Nome || !item.Telefone);
+
+    const invalidData = data.filter((item) => !item.Nome || !item.Telefone);
     if (invalidData.length > 0)
       return res.status(400).json({
         error: "Name and phone are required!",
       });
-    req.body.every(async (item) => {
+
+    data.every(async (item) => {
       let user = await User.findOne({ Telefone: item.Telefone });
       if (user) {
-        user = { ...user, ...item };
-        return await user
-          .save()
-          .then(() => true)
+        return await User.updateOne({ id: user.id }, { ...item })
+          .then(() => {
+            messageServices
+              .sendWhatsappMessage(item.Telefone, msg)
+              .then(({ data }) => {
+                console.log("[message-service]", data);
+              })
+              .catch((err) => {
+                console.log("[message-service-error]", err);
+              });
+            return true;
+          })
           .catch((err) => {
             console.log(err);
             res.status(500).json({
@@ -30,6 +41,14 @@ module.exports = {
 
       return await User.create(item)
         .then(() => {
+          messageServices
+            .sendWhatsappMessage(item.Telefone, msg)
+            .then(({ data }) => {
+              console.log("[message-service]", data);
+            })
+            .catch((err) => {
+              console.log("[message-service-error]", err);
+            });
           return true;
         })
         .catch((err) => {
@@ -40,6 +59,7 @@ module.exports = {
           return false;
         });
     });
+
     return res.status(200).json({
       success: "Users created!",
     });
